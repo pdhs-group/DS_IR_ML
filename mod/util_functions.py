@@ -318,7 +318,7 @@ class config():
         # Fraction of samples to be used during testing (not exact, due to roundoff)
         self.TEST_SIZE = 2/16 
         # Number of repetition of full CV (randomized sample order)
-        self.N_REPS = 100
+        self.N_REPS = 1000
         # Linear Regression: 'lin', Neural Net: 'nn'
         self.MODEL = 'lin'
         # Perform feature selection?

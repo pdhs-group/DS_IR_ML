@@ -94,8 +94,8 @@ if COMPARE_P:
              horizontalalignment='right', verticalalignment='bottom',
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     
-    ax1.set_xlabel('$\mathrm{DS_{31P}}$ ("Truth") / $-$')
-    ax1.set_ylabel('$\mathrm{DS_{1H}}$ / $\mathrm{DS_{IR,int}}$ / $-$')
+    ax1.set_xlabel('$\mathrm{DS_{31P}}$')
+    ax1.set_ylabel('$\mathrm{DS_{1H}}$ or $\mathrm{DS_{IR,int}}$')
     ax1.grid(True)
     ax1.set_xlim([1,3.5])
     ax1.set_ylim([1,3.5])
@@ -178,14 +178,15 @@ if IR_ML_BASELINE:
              horizontalalignment='right', verticalalignment='bottom',
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     
-    ax2.set_xlabel('$\mathrm{DS_{1H}}$ ("Truth") / $-$')
-    ax2.set_ylabel('$\mathrm{DS_{IR,ML}}$ or $\mathrm{DS_{IR,int}}$ / $-$')
+    ax2.set_xlabel('$\mathrm{DS_{1H}}$')
+    ax2.set_ylabel('$\mathrm{DS_{IR,ML}}$ or $\mathrm{DS_{IR,int}}$')
     ax2.grid(True)
     ax2.set_xlim([np.min([P2_true,P2_pred])-0.2,np.max([P2_true,P2_pred])+0.2])
     ax2.set_ylim([np.min([P2_true,P2_pred])-0.2,np.max([P2_true,P2_pred])+0.2])
     plt.tight_layout() 
     
-    ax2.legend()
+    ref_handle, ref_label = ax2.get_legend_handles_labels()
+    ax2.legend(ref_handle[::-1], ref_label[::-1])
     
     if EXPORT:
         plt.savefig("exp/IR_ML_baseline.png", dpi=300)        
@@ -254,8 +255,8 @@ if K_FOLD_STUDY:
             bp['boxes'][i].set_alpha(0.8)
             bp['boxes'][i].set_edgecolor('k')
             
-    ax3.set_xlabel('$k$ during k-fold / $-$')
-    ax3.set_ylabel('$\mathrm{MAE_{IR,ML}}$ / $-$')
+    ax3.set_xlabel('$k$ during k-fold')
+    ax3.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
     ax3.set_xticks(k_array)
     ax3.grid(axis='y')
     ax3.set_xlim([1,17])
@@ -384,7 +385,7 @@ if WN_RANGE_STUDY:
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))        
     ax4.axhline(MAE_ref,color='k',linewidth=1.5, zorder=0, label='$\mathrm{MAE_{IR,int}}$')
     ax4.set_xlabel('Wavenumber Area')
-    ax4.set_ylabel('$\mathrm{MAE_{IR,ML}}$ / $-$')
+    ax4.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
     ax4.set_ylim(0,0.5)
     ax4.set_xticklabels([])
     ax4.set_xticks([])
@@ -541,8 +542,8 @@ if FS_STUDY:
     ax7.text(0.005,0.98,'(a)',transform=ax7.transAxes, horizontalalignment='left',
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))        
-    ax7.set_xlabel('$n$ of n-best feature selection / $-$')
-    ax7.set_ylabel('$\mathrm{MAE_{IR,ML}}$ / $-$')
+    ax7.set_xlabel('$n$ of n-best feature selection')
+    ax7.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
     ax7.grid(axis='y')
     plt.tight_layout()
     
@@ -637,8 +638,8 @@ if WN_RANGE_STUDY and FS_STUDY:
     ax21.text(0.01,0.98,'(b)',transform=ax21.transAxes, horizontalalignment='left',
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))        
-    ax21.set_xlabel('$n$ of n-best feature selection / $-$')
-    ax21.set_ylabel('$\mathrm{MAE_{IR,ML}}$ / $-$')
+    ax21.set_xlabel('$n$ of n-best feature selection')
+    ax21.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
     ax21.grid(axis='y')
     skip = 4
     ax21.set_xticks(ax21.get_xticks()[::skip])
@@ -664,7 +665,7 @@ if WN_RANGE_STUDY and FS_STUDY:
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))        
     ax20.axhline(MAE_ref,color='k',linewidth=1.5, zorder=0, label='$\mathrm{MAE_{IR,int}}$')
     ax20.set_xlabel('Wavenumber Area')
-    ax20.set_ylabel('$\mathrm{MAE_{IR,ML}}$ / $-$')
+    ax20.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
     ax20.set_ylim(0,0.5)
     ax20.set_xticklabels([])
     ax20.set_xticks([])
@@ -863,8 +864,8 @@ if EXTRAPOLATION:
               horizontalalignment='right', verticalalignment='bottom',
               bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     
-    ax8.set_xlabel('$\mathrm{DS_{1H}}$ ("Truth") / $-$')
-    ax8.set_ylabel('$\mathrm{DS_{IR,ML}}$ / $-$')
+    ax8.set_xlabel('$\mathrm{DS_{1H}}$')
+    ax8.set_ylabel('$\mathrm{DS_{IR,ML}}$')
     ax8.grid(True)
     ax8.set_xlim([0.5,3])
     ax8.set_ylim([0.5,3])
@@ -889,8 +890,8 @@ if EXTRAPOLATION:
               horizontalalignment='right', verticalalignment='bottom',
               bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     
-    ax10.set_xlabel('$\mathrm{DS_{1H}}$ ("Truth") / $-$')
-    ax10.set_ylabel('$\mathrm{DS_{IR,ML}}$ / $-$')
+    ax10.set_xlabel('$\mathrm{DS_{1H}}$')
+    ax10.set_ylabel('$\mathrm{DS_{IR,ML}}$')
     ax10.grid(True)
     ax10.set_xlim([0.5,3])
     ax10.set_ylim([0.5,3])
