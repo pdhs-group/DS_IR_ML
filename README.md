@@ -7,7 +7,7 @@ Frank Rhein, Timo Sehn, Michael A.R. Meier
 This repository contains the data evaluation reported in *"Efficient and accurate determination of the degree of substitution of cellulose acetate using ATR-FTIR spectrosopy and machine learning"*. 
 
 ## Data 
-Data used in this repository is published under the CC BY-NC 4.0 license here: https://doi.org/10.35097/tvwlylbMvDXhEcRt and simple downloaded and extracted to the `data/` folder in this repository. 
+Data used in this repository is published under the CC BY-NC 4.0 license here: https://publikationen.bibliothek.kit.edu/1000172511 (DOI: 10.35097/tvwlylbMvDXhEcRt) and simple downloaded and extracted to the `data/` folder in this repository. 
 
 ## Reproduce the Results
 All code is written in Python. The reported study is contained in `ds_ir_ml.py` and is divided into sections according to the publication. Each section can be run individually by setting the corresponding boolean values in lines 25-30. 
