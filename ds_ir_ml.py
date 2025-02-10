@@ -3,7 +3,7 @@ Perform the entire study published in
 "Efficient and accurate determination of the degree of substitution of cellulose acetate using ATR-FTIR spectrosopy and machine learning"
 Frank Rhein, Timo Sehn, Michael Meier
 
-Raw data is available at: URL_DATA
+Raw data is available at https://publikationen.bibliothek.kit.edu/1000172511 (DOI: 10.35097/tvwlylbMvDXhEcRt)
     
 ds_ir_ml.py 
 """
@@ -23,7 +23,7 @@ from mod.util_functions import import_IR_DS, perform_CV, feature_selection, init
 # Which parts of the paper do you want to evaluate?
 COMPARE_P = True
 IR_ML_BASELINE = True
-K_FOLD_STUDY = True
+K_FOLD_STUDY = False
 WN_RANGE_STUDY = True
 FS_STUDY = True
 EXTRAPOLATION = True
@@ -70,11 +70,11 @@ if COMPARE_P:
     #%%% Report and Plot
     print('-- 31P ("Truth") vs. 1H --')
     print(f"Mean absolute error (MAE): {MAE_1H:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_1H:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_1H:.3f}%")
     print("##---------")  
     print('-- 31P ("Truth") vs. IR_int --')
     print(f"Mean absolute error (MAE): {MAE_IR_int:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_IR_int:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_IR_int:.3f}%")
     print("##---------") 
     
     init_plot(size = 'half', page_width_cm = LNE_WDTH)    
@@ -84,18 +84,18 @@ if COMPARE_P:
     
     ax1.plot([0,10],[0,10],color='k')
     ax1.scatter(P_DS_data, H_DS_data, edgecolors='k', color=cp.blue, 
-                alpha=0.7, zorder=3, label='$\mathrm{DS_{1H}}$')
+                alpha=0.7, zorder=3, label=r'$\mathrm{DS_{1H}}$')
     ax1.scatter(P_DS_data, IR_DS_data, edgecolors='k', color=cp.red, 
-                alpha=0.7, zorder=2, label='$\mathrm{DS_{IR,int}}$')    
-    ax1.text(0.98,0.12,'$\mathrm{MAE_{1H}}='+f'{MAE_1H:.3f}$', transform=ax1.transAxes,
+                alpha=0.7, zorder=2, label=r'$\mathrm{DS_{IR,int}}$')    
+    ax1.text(0.98,0.12,r'$\mathrm{MAE_{1H}}='+f'{MAE_1H:.3f}$', transform=ax1.transAxes,
              horizontalalignment='right', verticalalignment='bottom',
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
-    ax1.text(0.98,0.02,'$\mathrm{MAE_{IR,int}}='+f'{MAE_IR_int:.3f}$', transform=ax1.transAxes,
+    ax1.text(0.98,0.02,r'$\mathrm{MAE_{IR,int}}='+f'{MAE_IR_int:.3f}$', transform=ax1.transAxes,
              horizontalalignment='right', verticalalignment='bottom',
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     
-    ax1.set_xlabel('$\mathrm{DS_{31P}}$')
-    ax1.set_ylabel('$\mathrm{DS_{1H}}$ or $\mathrm{DS_{IR,int}}$')
+    ax1.set_xlabel(r'$\mathrm{DS_{31P}}$')
+    ax1.set_ylabel(r'$\mathrm{DS_{1H}}$ or $\mathrm{DS_{IR,int}}$')
     ax1.grid(True)
     ax1.set_xlim([1,3.5])
     ax1.set_ylim([1,3.5])
@@ -156,7 +156,7 @@ if IR_ML_BASELINE:
     #%%% Report and Plot
     print('-- 1H ("Truth") vs. IR_int --')
     print(f"Mean absolute error (MAE): {MAE_IR_int:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_IR_int:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_IR_int:.3f}%")
     print("##---------") 
     
     init_plot(size = 'half', page_width_cm = LNE_WDTH)    
@@ -166,20 +166,20 @@ if IR_ML_BASELINE:
     
     ax2.plot([-10,10],[-10,10],color='k')
     ax2.errorbar(np.sort(H_DS_data), ML_DS_data, yerr=ML_DS_std, fmt='o', mfc=cp.green,
-                  mec='k', label='$\mathrm{DS_{IR,ML}}$', capsize=5, ecolor='k', 
+                  mec='k', label=r'$\mathrm{DS_{IR,ML}}$', capsize=5, ecolor='k', 
                   elinewidth=1,alpha=0.7)
     
     ax2.scatter(H_DS_data, IR_DS_data, edgecolors='k', color=cp.red, 
-                alpha=0.7, zorder=2, label='$\mathrm{DS_{IR,int}}$') 
-    ax2.text(0.98,0.12,'$\mathrm{MAE_{IR,ML}}='+f'{MAE_IR_bl:.3f}$', transform=ax2.transAxes,
+                alpha=0.7, zorder=2, label=r'$\mathrm{DS_{IR,int}}$') 
+    ax2.text(0.98,0.12,r'$\mathrm{MAE_{IR,ML}}='+f'{MAE_IR_bl:.3f}$', transform=ax2.transAxes,
              horizontalalignment='right', verticalalignment='bottom',
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
-    ax2.text(0.98,0.02,'$\mathrm{MAE_{IR,int}}='+f'{MAE_IR_int:.3f}$', transform=ax2.transAxes,
+    ax2.text(0.98,0.02,r'$\mathrm{MAE_{IR,int}}='+f'{MAE_IR_int:.3f}$', transform=ax2.transAxes,
              horizontalalignment='right', verticalalignment='bottom',
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     
-    ax2.set_xlabel('$\mathrm{DS_{1H}}$')
-    ax2.set_ylabel('$\mathrm{DS_{IR,ML}}$ or $\mathrm{DS_{IR,int}}$')
+    ax2.set_xlabel(r'$\mathrm{DS_{1H}}$')
+    ax2.set_ylabel(r'$\mathrm{DS_{IR,ML}}$ or $\mathrm{DS_{IR,int}}$')
     ax2.grid(True)
     ax2.set_xlim([np.min([P2_true,P2_pred])-0.2,np.max([P2_true,P2_pred])+0.2])
     ax2.set_ylim([np.min([P2_true,P2_pred])-0.2,np.max([P2_true,P2_pred])+0.2])
@@ -256,7 +256,7 @@ if K_FOLD_STUDY:
             bp['boxes'][i].set_edgecolor('k')
             
     ax3.set_xlabel('$k$ during k-fold')
-    ax3.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
+    ax3.set_ylabel(r'$\mathrm{MAE_{IR,ML}}$')
     ax3.set_xticks(k_array)
     ax3.grid(axis='y')
     ax3.set_xlim([1,17])
@@ -352,7 +352,7 @@ if WN_RANGE_STUDY:
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     ax5.set_xlabel(r'Wavenumber $\nu$ / cm$^{-1}$')
-    ax5.set_ylabel('Transmission / $\%$')
+    ax5.set_ylabel(r'Transmission / $\%$')
     ax5.set_xlim(min(wn_full),max(wn_full))
     ax5.set_ylim(-9,109)
     ax5.invert_xaxis()
@@ -383,9 +383,9 @@ if WN_RANGE_STUDY:
     ax4.text(0.005,0.98,'(a)',transform=ax4.transAxes, horizontalalignment='left',
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))        
-    ax4.axhline(MAE_ref,color='k',linewidth=1.5, zorder=0, label='$\mathrm{MAE_{IR,int}}$')
+    ax4.axhline(MAE_ref,color='k',linewidth=1.5, zorder=0, label=r'$\mathrm{MAE_{IR,int}}$')
     ax4.set_xlabel('Wavenumber Area')
-    ax4.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
+    ax4.set_ylabel(r'$\mathrm{MAE_{IR,ML}}$')
     ax4.set_ylim(0,0.5)
     ax4.set_xticklabels([])
     ax4.set_xticks([])
@@ -519,12 +519,12 @@ if FS_STUDY:
     ax6.text(0.005,0.97,'(b)',transform=ax6.transAxes, horizontalalignment='left',
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
-    ax6.text(0.995,0.97,'$n_{\mathrm{opt}}'+f'={n_array[idx_min]}$',transform=ax6.transAxes,
+    ax6.text(0.995,0.97,r'$n_{\mathrm{opt}}'+f'={n_array[idx_min]}$',transform=ax6.transAxes,
              horizontalalignment='right',
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     ax6.set_xlabel(r'Wavenumber $\nu$ / cm$^{-1}$')
-    ax6.set_ylabel('Transmission / $\%$')
+    ax6.set_ylabel(r'Transmission / $\%$')
     ax6.set_xlim(min(wn_full),max(wn_full))
     ax6.set_ylim(-9,109)
     ax6.invert_xaxis()
@@ -543,7 +543,7 @@ if FS_STUDY:
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))        
     ax7.set_xlabel('$n$ of n-best feature selection')
-    ax7.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
+    ax7.set_ylabel(r'$\mathrm{MAE_{IR,ML}}$')
     ax7.grid(axis='y')
     plt.tight_layout()
     
@@ -604,12 +604,12 @@ if WN_RANGE_STUDY and FS_STUDY:
     ax22.text(0.015,0.97,'(c)',transform=ax22.transAxes, horizontalalignment='left',
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
-    ax22.text(0.995,0.97,'$n_{\mathrm{opt}}'+f'={n_array[idx_min]}$',transform=ax22.transAxes,
+    ax22.text(0.995,0.97,r'$n_{\mathrm{opt}}'+f'={n_array[idx_min]}$',transform=ax22.transAxes,
              horizontalalignment='right',
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     ax22.set_xlabel(r'Wavenumber $\nu$ / cm$^{-1}$')
-    ax22.set_ylabel('Transmission / $\%$')
+    ax22.set_ylabel(r'Transmission / $\%$')
     ax22.set_xlim(min(wn_full),max(wn_full))
     ax22.set_ylim(-9,109)
     ax22.invert_xaxis()
@@ -639,7 +639,7 @@ if WN_RANGE_STUDY and FS_STUDY:
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))        
     ax21.set_xlabel('$n$ of n-best feature selection')
-    ax21.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
+    ax21.set_ylabel(r'$\mathrm{MAE_{IR,ML}}$')
     ax21.grid(axis='y')
     skip = 4
     ax21.set_xticks(ax21.get_xticks()[::skip])
@@ -663,9 +663,9 @@ if WN_RANGE_STUDY and FS_STUDY:
     ax20.text(0.01,0.98,'(a)',transform=ax20.transAxes, horizontalalignment='left',
              verticalalignment='top', 
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))        
-    ax20.axhline(MAE_ref,color='k',linewidth=1.5, zorder=0, label='$\mathrm{MAE_{IR,int}}$')
+    ax20.axhline(MAE_ref,color='k',linewidth=1.5, zorder=0, label=r'$\mathrm{MAE_{IR,int}}$')
     ax20.set_xlabel('Wavenumber Area')
-    ax20.set_ylabel('$\mathrm{MAE_{IR,ML}}$')
+    ax20.set_ylabel(r'$\mathrm{MAE_{IR,ML}}$')
     ax20.set_ylim(0,0.5)
     ax20.set_xticklabels([])
     ax20.set_xticks([])
@@ -801,36 +801,36 @@ if EXTRAPOLATION:
     print(f'-- WITH FEATURE SELECT (n={cf.K_BEST}) --')
     print('-- Wolfs.B --')
     print(f"Mean absolute error (MAE): {MAE_Wb:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_Wb:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_Wb:.3f}%")
     print("##---------")  
     print('-- Sehn.A --')
     print(f"Mean absolute error (MAE): {MAE_Sa:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_Sa:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_Sa:.3f}%")
     print("##---------") 
     print('-- Sehn.B --')
     print(f"Mean absolute error (MAE): {MAE_Sb:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_Sb:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_Sb:.3f}%")
     print("##---------") 
     print('-- Sehn.C --')
     print(f"Mean absolute error (MAE): {MAE_Sc:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_Sc:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_Sc:.3f}%")
     print("##---------") 
     print(f'-- WITHOUT FEATURE SELECT (full wavenumber range) --')
     print('-- Wolfs.B --')
     print(f"Mean absolute error (MAE): {MAE_Wb_full:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_Wb_full:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_Wb_full:.3f}%")
     print("##---------")  
     print('-- Sehn.A --')
     print(f"Mean absolute error (MAE): {MAE_Sa_full:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_Sa_full:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_Sa_full:.3f}%")
     print("##---------") 
     print('-- Sehn.B --')
     print(f"Mean absolute error (MAE): {MAE_Sb_full:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_Sb_full:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_Sb_full:.3f}%")
     print("##---------") 
     print('-- Sehn.C --')
     print(f"Mean absolute error (MAE): {MAE_Sc_full:.3f}")
-    print(f"Mean relative error (MRE): {100*MRE_Sc_full:.3f}\%")
+    print(f"Mean relative error (MRE): {100*MRE_Sc_full:.3f}%")
     print("##---------") 
     
     # --- SETUP
@@ -864,8 +864,8 @@ if EXTRAPOLATION:
               horizontalalignment='right', verticalalignment='bottom',
               bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     
-    ax8.set_xlabel('$\mathrm{DS_{1H}}$')
-    ax8.set_ylabel('$\mathrm{DS_{IR,ML}}$')
+    ax8.set_xlabel(r'$\mathrm{DS_{1H}}$')
+    ax8.set_ylabel(r'$\mathrm{DS_{IR,ML}}$')
     ax8.grid(True)
     ax8.set_xlim([0.5,3])
     ax8.set_ylim([0.5,3])
@@ -890,8 +890,8 @@ if EXTRAPOLATION:
               horizontalalignment='right', verticalalignment='bottom',
               bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     
-    ax10.set_xlabel('$\mathrm{DS_{1H}}$')
-    ax10.set_ylabel('$\mathrm{DS_{IR,ML}}$')
+    ax10.set_xlabel(r'$\mathrm{DS_{1H}}$')
+    ax10.set_ylabel(r'$\mathrm{DS_{IR,ML}}$')
     ax10.grid(True)
     ax10.set_xlim([0.5,3])
     ax10.set_ylim([0.5,3])
@@ -914,7 +914,7 @@ if EXTRAPOLATION:
              verticalalignment='top', zorder=99,
              bbox=dict(alpha=0.8,facecolor='w', edgecolor='none',pad=1.2))
     ax9.set_xlabel(r'Wavenumber $\nu$ / cm$^{-1}$')
-    ax9.set_ylabel('Transmission / $\%$')
+    ax9.set_ylabel(r'Transmission / $\%$')
     ax9.set_xlim(min(wn_full),max(wn_full))
     ax9.set_ylim(-9,109)
     ax9.invert_xaxis()
